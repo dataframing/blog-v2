@@ -19,7 +19,7 @@ Status: Draft
 
 def generate_entry(title):
     today = datetime.today()
-    slug = re.sub('[^a-zA-Z0-9\-]', '', title.lower().strip().replace(' ', '-'))
+    slug = re.sub("[^a-zA-Z0-9\-]", "", title.lower().strip().replace(" ", "-"))
 
     # Will attempt to make the year's directory. Does not throw an error if it exists
     os.makedirs("content/{}".format(today.year), exist_ok=True)
@@ -29,19 +29,21 @@ def generate_entry(title):
         print("Error. Article already exists. Not overwriting.")
         return
 
-    t = TEMPLATE.strip().format(title=title,
-                                year=today.year,
-                                month=today.month,
-                                day=today.day,
-                                hour=today.hour,
-                                minute=today.minute,
-                                slug=slug)
-    with open(new_article, 'w') as w:
+    t = TEMPLATE.strip().format(
+        title=title,
+        year=today.year,
+        month=today.month,
+        day=today.day,
+        hour=today.hour,
+        minute=today.minute,
+        slug=slug,
+    )
+    with open(new_article, "w") as w:
         w.write(t)
     print("Article ready for editing: " + new_article)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     if len(sys.argv) > 1:
         generate_entry(sys.argv[1])
     else:
